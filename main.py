@@ -1,11 +1,29 @@
 from hangman import *
 hangmanGame = Hangman()
 previous_num_guesses_left = 0 
+num_guesses_left = 6
 keepplaying = True
+
+# Test cases
+# hangmanGame = Hangman("bob",["b","o"])
+# hangmanGame = Hangman("bob",["aa","34567","a","c","d","e","f","g","b","o"])
+# hangmanGame = Hangman("bob",["a","a","a","b","o"])
+
+# Use a function to either get a guess from user prompt or from hard coded test case guesses
+def get_guess():
+    if hangmanGame.guess_index != None:
+        guess = hangmanGame.guesses[hangmanGame.guess_index]
+        print(guess)
+        hangmanGame.guess_index += 1
+    else:
+        guess = input("Guess a letter: ").lower()
+    return guess
+
+# A continuous game loop until player chooses to exit
 while(keepplaying):
    
     print(hangmanGame.get_display_string())
-    guess = input("Guess a letter: ").lower()
+    guess = get_guess()
     if len(guess) != 1 or not guess.isalpha():
         print(f"Must be one letter. You have {num_guesses_left} guesses left.")
         continue
